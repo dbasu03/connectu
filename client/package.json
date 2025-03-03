@@ -2,11 +2,18 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
+    "@fontsource/cabin": "^5.1.1",
+    "@fontsource/inter": "^5.1.1",
+    "@fontsource/inter-tight": "^5.1.1",
     "cra-template": "1.2.0",
+    "dotenv": "^16.4.7",
     "firebase": "^11.3.0",
+    "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1"
   },
   "scripts": {

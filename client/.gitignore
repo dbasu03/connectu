@@ -8,6 +8,13 @@
 # testing
 /coverage
 
+# Environment variables (🔴 IMPORTANT: This prevents leaking API keys!)
+.env
+.env.local
+.env.development
+.env.production
+
+
 # production
 /build
 

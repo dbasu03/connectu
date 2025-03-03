@@ -1,0 +1,575 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Chatroom Panel - Sliding from Left */
+.chatroom-panel {
+  position: fixed;
+  top: 0;
+  left: -300px; /* Initially hidden */
+  width: 300px;
+  height: 100%;
+  background: #222;
+  color: white;
+  padding: 20px;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* When Panel is Open */
+.chatroom-panel.open {
+  left: 0;
+}
+
+/* Close Panel Button */
+.close-panel-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-panel-btn:hover {
+  background: darkred;
+}
+
+/* Open Panel Button */
+.open-panel-btn {
+  position: fixed;
+  top: 15px;
+  left: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.open-panel-btn:hover {
+  background: #555;
+}
+
+/* Chatroom List */
+.chatroom-list {
+  list-style: none;
+  padding: 0;
+}
+
+.chatroom-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #333;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+.chatroom-item span {
+  font-size: 1rem;
+}
+
+.chat-btn {
+  background: #2c2c2c;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-btn:hover {
+  background: #45a049;
+}
+
+/* 🔹 RESPONSIVE DESIGN FOR MOBILE & TABLETS */
+@media screen and (max-width: 768px) {
+  .chatroom-panel {
+    width: 80%; /* Covers 80% of the screen on mobile/tablets */
+    left: -100%; /* Hide it initially */
+  }
+
+  .chatroom-panel.open {
+    left: 0;
+  }
+
+  .open-panel-btn {
+    left: 5px;
+    padding: 12px;
+  }
+
+  .close-panel-btn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .chatroom-panel {
+    width: 100%; /* Full screen on smaller mobile screens */
+    left: -100%;
+  }
+
+  .chatroom-panel.open {
+    left: 0;
+  }
+}
+
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px); /* Adjust based on header/footer */
+}
+
+.message-container {
+  display: flex;
+  align-items: flex-start;
+  max-width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  background: #f1f1f1;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.sent {
+  align-self: flex-end;
+  background: #007bff;
+  color: white;
+}
+
+.received {
+  align-self: flex-start;
+  background: #e5e5ea;
+  color: black;
+}
+
+/* Avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Message content */
+.message-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+/* Username */
+.message-username {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Timestamp */
+.message-timestamp {
+  font-size: 12px;
+  color: gray;
+  margin-top: 5px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .chat-messages {
+      padding: 5px;
+      max-height: calc(100vh - 120px); /* Adjusted height for smaller screens */
+  }
+
+  .message-container {
+      max-width: 90%;
+      padding: 8px;
+      font-size: 14px;
+  }
+
+  .avatar {
+      width: 30px;
+      height: 30px;
+      margin-right: 8px;
+  }
+
+  .message-username {
+      font-size: 12px;
+  }
+
+  .message-text {
+      font-size: 14px;
+  }
+
+  .message-timestamp {
+      font-size: 10px;
+  }
+}
+
+
+
+/* Chatroom Main Container */
+.chatroom-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #121212;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  overflow-y: auto; /* ✅ Enables vertical scrolling */
+}
+
+/* Show chatroom when active */
+.chatroom-container.active {
+  transform: translateX(0);
+}
+
+/* Fixed Close Button at the Right */
+.close-chat-btn {
+  position: fixed; /* Ensures it stays at the top of the screen */
+  top: 10px; /* Adjust top spacing */
+  right: 10px; /* Move to the right */
+  background: red;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+  z-index: 1000; /* Keeps it above other elements */
+}
+
+.close-chat-btn:hover {
+  background: darkred;
+}
+
+
+/* Chatroom Box */
+.chat-box {
+  width: 100%;
+  max-width: 900px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.chat-header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Chatroom List */
+.chatroom-list {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.chatroom-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 1rem;
+}
+
+.chatroom-item:hover {
+  background: #3a3a3a;
+}
+
+/* Messages */
+.chat-messages {
+  width: 100%;
+  max-height: 450px;
+  overflow-y: auto;
+  background: #252525;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Message Bubbles */
+.message {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  font-size: 1rem;
+  max-width: 75%;
+}
+
+.message.you {
+  background: #ff9800;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.message.other {
+  background: #3a3a3a;
+}
+
+/* Chat Input */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.chat-input-field {
+  flex: 1;
+  padding: 14px;
+  border-radius: 6px;
+  border: none;
+  background: #333;
+  color: white;
+  font-size: 1rem;
+}
+
+.chat-send-btn {
+  padding: 14px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+.chat-send-btn:hover {
+  background: #45a049;
+}
+
+/* 🔹 Responsive Design 🔹 */
+@media (max-width: 1024px) { /* Tablets and small laptops */
+  .chat-box {
+    width: 95%;
+    padding: 15px;
+  }
+  .chat-header {
+    font-size: 1.6rem;
+  }
+  .chat-input {
+    gap: 8px;
+  }
+  .chat-input-field {
+    font-size: 0.9rem;
+  }
+  .chat-send-btn {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) { /* Phones */
+  .chat-box {
+    width: 100%;
+    padding: 12px;
+  }
+  .chat-header {
+    font-size: 1.4rem;
+  }
+  .chatroom-item {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+  .message {
+    font-size: 0.9rem;
+    max-width: 80%;
+  }
+  .chat-input {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .chat-input-field, .chat-send-btn {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) { /* Small Phones */
+  .chat-box {
+    padding: 10px;
+  }
+  .chat-header {
+    font-size: 1.2rem;
+  }
+  .chatroom-item {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+  .message {
+    font-size: 0.8rem;
+  }
+  .chat-input {
+    flex-direction: column;
+  }
+  .chat-input-field {
+    padding: 10px;
+  }
+  .chat-send-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* Add these styles to your existing Confessions.css file */
+
+/* File preview styling */
+.file-preview {
+  position: relative;
+  margin: 10px 0;
+  max-width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.preview-image, .preview-video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+}
+
+.remove-file-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Media content in messages */
+.message-media {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.shared-image {
+  max-width: 250px;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.shared-video {
+  max-width: 250px;
+  max-height: 200px;
+  border-radius: 8px;
+}
+
+/* Enhanced chat input container */
+.chat-input-container {
+  margin-top: 10px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+}
+
+.chat-input-field {
+  flex-grow: 1;
+}
+
+.attach-file-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin: 0 5px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.attach-file-btn:hover {
+  opacity: 1;
+}
+
+.attach-file-btn:disabled, .chat-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .shared-image, .shared-video, .preview-image, .preview-video {
+    max-width: 200px;
+    max-height: 150px;
+  }
+}
+
+.chat-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.create-lore-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-chatroom-form {
+  display: flex;
+  margin-bottom: 15px;
+  gap: 10px;
+}
