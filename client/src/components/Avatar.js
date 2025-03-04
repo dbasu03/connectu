@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../firebase"; // Ensure Firebase is properly imported
 import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
-import { ChevronDown } from "lucide-react";
-
+import { ChevronDown, RefreshCw } from "lucide-react";
 
 const usernameList = [
   "commiesauraus", "r00d", "wizzie", "mrwhitebiacth", "miniii", "shaquilleoatmeal",
@@ -99,14 +98,31 @@ const Avatar = ({ setShowHome }) => {
   }, []);
   
 
-  const toggleUsername = () => {
+  {/*const toggleUsername = () => {
     let newUsername;
     do {
       newUsername = usernameList[Math.floor(Math.random() * usernameList.length)];
     } while (takenUsernames.has(newUsername)); // Ensure the username isn't taken
 
     setSelectedUsername(newUsername);
+  };*/}
+
+  const toggleUsername = () => {
+    // Filter out usernames that are already taken
+    const availableUsernames = usernameList.filter(username => !takenUsernames.has(username));
+  
+    // If all usernames are taken, do nothing
+    if (availableUsernames.length === 0) {
+      console.warn("No available usernames left!");
+      return;
+    }
+  
+    // Select a random username from the available ones
+    const newUsername = availableUsernames[Math.floor(Math.random() * availableUsernames.length)];
+  
+    setSelectedUsername(newUsername);
   };
+  
 
   const toggleAvatar = () => {
     let newAvatar;
@@ -178,100 +194,43 @@ const Avatar = ({ setShowHome }) => {
         </>
       ) : (
         <>
-          <p>   </p>
-<div style={styles.profileContainer}>
-  <div style={styles.avatarWrapper}>
-    <img 
-      src={selectedAvatar || avatarImages[0]} 
-      alt="Avatar" 
-      style={styles.avatar}
-    />
-    {/*<p style={styles.username}>{selectedUsername || "Select Username"}</p>*/}
-  </div>
-  
-  
-</div>
-
-{/*<button onClick={toggleAvatar} style={styles.button}>Toggle Avatar</button>*/}
-<button onClick={toggleAvatar} style={styles.toggleButton}>
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="white"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* Left Arrow with Stick (Upward) */}
-    <path d="M7 5v10" />  {/* Vertical stick */}
-    <path d="M4 10l3-3 3 3" />  {/* Upward arrow */}
-
-    {/* Right Arrow with Stick (Downward) */}
-    <path d="M17 9v10" />  {/* Vertical stick */}
-    <path d="M14 15l3 3 3-3" />  {/* Downward arrow */}
-  </svg>
-</button>
-
-
-
-
-
-          <p>    <strong>{selectedUsername || "None"}</strong></p>
-          {/*<button onClick={toggleUsername} style={styles.button}>Toggle Username</button>*/}
-          <button onClick={toggleUsername} style={styles.toggleButton}>
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="white"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* Left Arrow with Stick (Upward) */}
-    <path d="M7 5v10" />  {/* Vertical stick */}
-    <path d="M4 10l3-3 3 3" />  {/* Upward arrow */}
-
-    {/* Right Arrow with Stick (Downward) */}
-    <path d="M17 9v10" />  {/* Vertical stick */}
-    <path d="M14 15l3 3 3-3" />  {/* Downward arrow */}
-  </svg>
-</button>
-          
-          {/*
-          <div style={styles.avatarContainer}>
-            {avatarImages.map((avatar, index) => (
+          <div style={styles.profileContainer}>
+            <div style={styles.avatarWrapper}>
               <img 
-                key={index} 
-                src={avatar} 
+                src={selectedAvatar || avatarImages[0]} 
                 alt="Avatar" 
-                style={{
-                  ...styles.avatar, 
-                  border: avatar === selectedAvatar ? "3px solid white" : "none"
-                }}
-                onClick={() => setSelectedAvatar(avatar)}
+                style={styles.avatar}
               />
-            ))}
-          </div>*/}
+              <div style={styles.toggleIconWrapper}>
+                <ChevronDown 
+                  onClick={toggleAvatar} 
+                  style={styles.toggleIcon} 
+                />
+              </div>
+            </div>
+            
+            <div style={styles.usernameContainer}>
+              <p style={styles.username}><strong>{selectedUsername || "None"}</strong></p>
+              <div style={styles.toggleUsernameIconWrapper}>
+                <RefreshCw 
+                  onClick={toggleUsername} 
+                  style={styles.toggleIcon} 
+                />
+              </div>
+            </div>
+          </div>
 
-<button 
-  onClick={saveProfile} 
-  style={{ 
-    ...styles.button, 
-    backgroundColor: selectedUsername && selectedAvatar ? "grey" : "darkgrey",
-    cursor: selectedUsername && selectedAvatar ? "pointer" : "not-allowed"
-  }} 
-  disabled={!selectedUsername || !selectedAvatar}
->
-  Confirm
-</button>
-
-
-
-          {/*<button onClick={saveProfile} style={styles.button}>Confirm & Go to Roulette</button>*/}
+          <button 
+            onClick={saveProfile} 
+            style={{ 
+              ...styles.button, 
+              backgroundColor: selectedUsername && selectedAvatar ? "grey" : "darkgrey",
+              cursor: selectedUsername && selectedAvatar ? "pointer" : "not-allowed"
+            }} 
+            disabled={!selectedUsername || !selectedAvatar}
+          >
+            Confirm
+          </button>
         </>
       )}
     </div>
@@ -349,6 +308,40 @@ const styles = {
       width: "60px", // Smaller avatar for mobile
       height: "60px",
     },
+  },
+  profileContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    position: "relative",
+  },
+  avatarWrapper: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+  },
+  toggleIconWrapper: {
+    position: "absolute",
+    right: "-40px", // Positioning to the right of the avatar
+    cursor: "pointer",
+  },
+  usernameContainer: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: "10px",
+  },
+  toggleUsernameIconWrapper: {
+    marginLeft: "10px", // Space between username and toggle icon
+    cursor: "pointer",
+  },
+  toggleIcon: {
+    color: "white",
+    backgroundColor: "grey",
+    borderRadius: "50%",
+    padding: "5px",
+  },
+  username: {
+    margin: 0,
   },
 };
 

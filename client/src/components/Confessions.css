@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+
+
+
 /* Chatroom Panel - Sliding from Left */
 .chatroom-panel {
   position: fixed;
@@ -232,6 +235,9 @@
   align-items: center;
   justify-content: center;
   padding: 15px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  
   box-sizing: border-box;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
@@ -244,15 +250,17 @@
   transform: translateX(0);
 }
 
+
+
 /* Fixed Close Button at the Right */
 .close-chat-btn {
   position: fixed; /* Ensures it stays at the top of the screen */
   top: 10px; /* Adjust top spacing */
   right: 10px; /* Move to the right */
-  background: red;
+  background: transparent;
   color: white;
-  border: none;
-  padding: 12px 18px;
+  border: 2px solid white;
+  padding: 5px 14px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
@@ -267,16 +275,30 @@
 
 /* Chatroom Box */
 .chat-box {
-  width: 100%;
+  width: 100vw;
   max-width: 900px;
   background: #1e1e1e;
-  border-radius: 12px;
+  border-radius: 2px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 0px;
+  margin-bottom: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 0;
+  height: 100vh;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* Chatroom Name - Stick to the Top */
+.chat-box h2 {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  background: #1e1e1e; /* Match the chat box background */
+  font-family: 'Press Start 2P', cursive;
 }
 
 /* Header */
@@ -315,12 +337,12 @@
 /* Messages */
 .chat-messages {
   width: 100%;
-  max-height: 450px;
+  max-height: 80vh;
   overflow-y: auto;
   background: #252525;
   padding: 12px;
   border-radius: 8px;
-  margin-top: 12px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -353,7 +375,7 @@
   display: flex;
   gap: 10px;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .chat-input-field {
@@ -418,7 +440,7 @@
     max-width: 80%;
   }
   .chat-input {
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
   }
   .chat-input-field, .chat-send-btn {
@@ -442,7 +464,7 @@
     font-size: 0.8rem;
   }
   .chat-input {
-    flex-direction: column;
+    flex-direction: row;
   }
   .chat-input-field {
     padding: 10px;
@@ -513,7 +535,7 @@
 
 /* Enhanced chat input container */
 .chat-input-container {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .chat-input {
@@ -547,8 +569,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .shared-image, .shared-video, .preview-image, .preview-video {
-    max-width: 200px;
-    max-height: 150px;
+    max-width: 400px;
+    max-height: 300px;
   }
 }
 
@@ -573,3 +595,5 @@
   margin-bottom: 15px;
   gap: 10px;
 }
+
+

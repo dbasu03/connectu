@@ -245,6 +245,29 @@ const Confessions = ({ setShowChatroom }) => {
     }
   };
 
+  const parseMessageContent = (text) => {
+    if (!text) return text;
+  
+    // Regex pattern to detect URLs
+    const urlPattern = /(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\/\S*)?/gi;
+  
+    return text.split(urlPattern).map((part, index, array) => {
+      if (index < array.length - 1) {
+        const match = text.match(urlPattern)[index]; // Extract the actual matched URL
+        const url = match.startsWith("http") ? match : `https://${match}`; // Ensure URLs start with https://
+        return (
+          <React.Fragment key={index}>
+            {part}
+            <a href={url} target="_blank" rel="noopener noreferrer" className="message-link">
+              {match}
+            </a>
+          </React.Fragment>
+        );
+      }
+      return part; // Return last part of the split text
+    });
+  };
+  
   return (
     <>
       <div className="chat-btn" ref={chatBtnRef}></div>
@@ -256,7 +279,7 @@ const Confessions = ({ setShowChatroom }) => {
 
         <div className="chat-box">
           <div className="chat-header-container">
-            <h2 className="chat-header">Lores</h2>
+            <h2 className="chat-header"> </h2>
             {/*
             <button 
               className="create-lore-btn" 
@@ -311,7 +334,7 @@ const Confessions = ({ setShowChatroom }) => {
                           <span className="message-count"><strong>Confession #{confessionNumber}</strong></span>
                           
                           {/* Message Text (if any) */}
-                          {msg.text && <p className="message-text">{msg.text}</p>}
+                          {msg.text && <p className="message-text">{parseMessageContent(msg.text)}</p>}
 
                           {/* Media Content (if any) */}
                           {msg.media && (

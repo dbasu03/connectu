@@ -7,14 +7,52 @@ const Login = () => {
   const [college, setCollege] = useState("");
   const [department, setDepartment] = useState("");
   const [gender, setGender] = useState("");
-
+{/*
   const handleLogin = () => {
     if (!college || !department || !gender) {
       alert("Please fill in all fields before signing in.");
       return;
     }
     signInWithGoogle(college, department, gender);
+  };*/}
+  const handleLogin = () => {
+    if (!college || !department || !gender) {
+      alert("Please fill in all fields before signing in.");
+      return;
+    }
+  
+    const termsAndConditions = `Qubit Terms & Conditions and Community Guidelines
+Introduction
+Welcome to Qubit. By using our services, you agree to comply with these Terms & Conditions and Community Guidelines. 
+Acceptance of Terms
+By signing in, you acknowledge that you have read, understood, and agreed to these Terms & Conditions and our Privacy Policy.
+User Responsibilities
+Users are responsible for their account security and all activity under their account.
+Users must not engage in any illegal, abusive, or harmful behavior while using the platform.
+Prohibited Activities
+Harassment, bullying, or threatening other users.
+Sharing explicit, hateful, or illegal content.
+Impersonation of others or providing false information.
+Content and Privacy
+Users retain ownership of their content but grant the app a license to use, distribute, and display the content within the platform.
+Personal data is handled per our Privacy Policy to ensure user protection and compliance with applicable laws.
+Contact Information
+Contact us at contactus@qubitonline.in.
+Do you agree to these Terms & Conditions?`;
+
+const isAgreed = window.confirm(termsAndConditions);
+
+if (!isAgreed) {
+  alert("You must agree to continue using the app.");
+}
+
+
+  
+    if (isAgreed) {
+      signInWithGoogle(college, department, gender);
+    }
   };
+  
 
   return (
     <div style={styles.container}>
@@ -62,7 +100,7 @@ const Login = () => {
       </div>
       
       <footer style={styles.footer}>
-        &copy; 2025 connectu. All rights reserved. No bots or fake profiles here
+        &copy; 2025 connectu. All rights reserved.
       </footer>
     </div>
   );

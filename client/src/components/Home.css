@@ -697,6 +697,7 @@ html, body {
 .no-messages {
   font-family: 'Raleway', sans-serif;
 }
+/*
 .top-bar {
   width: 100%;
   display: flex;
@@ -790,10 +791,10 @@ html, body {
 
 .chatrooms-button, .chats-button, .confessions-button {
   display: flex; align-items: center; justify-content: center;
-  width: 80px;  /* Adjust size */
-  height: 50px; /* Rectangular shape */
+  width: 80px;  
+  height: 50px; 
   object-fit: cover;
-  border-radius: 5px; /* Slightly rounded edges, remove if not needed */
+  border-radius: 5px; 
   text-align: center;
   
   object-fit: cover;
@@ -802,13 +803,13 @@ html, body {
 }
 
 .chats-button:hover, .chatrooms-button:hover, .confessions-button:hover {
-  transform: scale(1.1); /* Slight zoom on hover */
+  transform: scale(1.1); 
   background-color: #747474;
 }
-
+*/
 
 .chat-container, .chat-list {
-  margin-top: 60px; /* Adjust so content starts below the fixed top bar */
+  margin-top: 60px; 
   width: 95%;
   max-width: 600px;
   background: rgb(27, 27, 27);
@@ -823,11 +824,13 @@ html, body {
   max-width: 600px;
   background: rgb(27, 27, 27);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-top: 50px;
 }
+
+
 
 
 
@@ -844,7 +847,7 @@ html, body {
   padding: 15px;
   margin: 10px 0;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 2px;
   background: #F5F5DC;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -993,3 +996,465 @@ html, body {
 }
 
 
+/*MEDIA PREVIEW CONTAINER*/
+.media-preview-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.media-preview {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.cancel-media-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.cancel-media-button:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Responsive Styles */
+
+/* Small screens (max-width: 600px) */
+@media (max-width: 600px) {
+  .media-preview-container {
+    max-width: 90%;
+    max-height: 75vh;
+    padding: 10px;
+  }
+
+  .cancel-media-button {
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+  }
+}
+
+/* Medium screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .media-preview-container {
+    max-width: 85%;
+    max-height: 80vh;
+  }
+}
+
+/* Tablets (max-width: 900px) */
+@media (max-width: 900px) {
+  .media-preview-container {
+    max-width: 80%;
+  }
+}
+
+/* Large tablets and small laptops (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .media-preview-container {
+    max-width: 75%;
+  }
+}
+
+/* Larger screens (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .media-preview-container {
+    max-width: 70%;
+  }
+}
+
+/* Extra large screens (min-width: 1201px) */
+@media (min-width: 1201px) {
+  .media-preview-container {
+    max-width: 60%;
+  }
+}
+
+
+/*attach button*/
+.attach-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation; /* Improves touch response */
+}
+
+/* Hover effect for larger screens */
+@media (min-width: 768px) {
+  .attach-button:hover {
+    transform: scale(1.2);
+  }
+}
+
+/* Active (click) effect */
+.attach-button:active {
+  transform: scale(0.9);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 600px) {
+  .attach-button {
+    font-size: 20px;
+    padding: 6px;
+  }
+}
+/*MATCH button*/
+
+.match-button {
+  padding: 10px 20px;
+  background-color: #1b1b1b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.match-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.disconnect-button {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.disconnection-notice {
+  background-color: #353535;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.match-button {
+  padding: 10px 20px;
+  background-color: #292929;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.match-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.disconnection-notice {
+  background-color: #383838;
+  color: #da5e5e;
+  padding: 2px;
+  border-radius: 4px;
+  margin: 2px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+/* Base Styles */
+.top-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #121212;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logout-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #181818;
+  padding: 2px 10px;
+  height: 40px;
+}
+
+.logout-button {
+  background: transparent;
+  color: white;
+  border: 1px solid #333;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  height: 30px;
+  width: auto;
+  margin-left: auto;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-options {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #1b1b1b;
+  padding: 8px 0;
+}
+
+.menu-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 0.7rem;
+  transition: opacity 0.3s ease;
+}
+
+.menu-button:hover {
+  opacity: 0.7;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+/* Responsive Breakpoints */
+/* Extra Small Phones (up to 320px) */
+@media screen and (max-width: 320px) {
+  .logout-container {
+    height: 35px;
+    padding: 2px 5px;
+  }
+
+  .logout-button {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    height: 25px;
+  }
+
+  .menu-options {
+    padding: 6px 0;
+  }
+
+  .menu-button {
+    font-size: 0.6rem;
+  }
+
+  .menu-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
+  }
+}
+
+/* Small Phones (321px - 375px) */
+@media screen and (min-width: 321px) and (max-width: 375px) {
+  .logout-container {
+    height: 40px;
+    padding: 2px 8px;
+  }
+
+  .logout-button {
+    font-size: 0.65rem;
+    padding: 4px 9px;
+    height: 28px;
+  }
+
+  .menu-options {
+    padding: 7px 0;
+  }
+
+  .menu-button {
+    font-size: 0.65rem;
+  }
+
+  .menu-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Medium Phones (376px - 414px) */
+@media screen and (min-width: 376px) and (max-width: 414px) {
+  .logout-container {
+    height: 45px;
+    padding: 2px 10px;
+  }
+
+  .logout-button {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+    height: 32px;
+  }
+
+  .menu-options {
+    padding: 8px 0;
+  }
+
+  .menu-button {
+    font-size: 0.7rem;
+  }
+
+  .menu-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Large Phones (415px - 480px) */
+@media screen and (min-width: 415px) and (max-width: 480px) {
+  .logout-container {
+    height: 50px;
+    padding: 2px 12px;
+  }
+
+  .logout-button {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    height: 35px;
+  }
+
+  .menu-options {
+    padding: 10px 0;
+  }
+
+  .menu-button {
+    font-size: 0.75rem;
+  }
+
+  .menu-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Extra Large Phones (481px - 540px) */
+@media screen and (min-width: 481px) and (max-width: 540px) {
+  .logout-container {
+    height: 55px;
+    padding: 2px 15px;
+  }
+
+  .logout-button {
+    font-size: 0.8rem;
+    padding: 7px 16px;
+    height: 38px;
+  }
+
+  .menu-options {
+    padding: 12px 0;
+  }
+
+  .menu-button {
+    font-size: 0.8rem;
+  }
+
+  .menu-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Tablets and Larger Devices */
+/* Small Tablets (541px - 768px) */
+@media screen and (min-width: 541px) and (max-width: 768px) {
+  .logout-container {
+    height: 60px;
+    padding: 2px 20px;
+  }
+
+  .logout-button {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    height: 42px;
+  }
+
+  .menu-options {
+    padding: 14px 0;
+  }
+
+  .menu-button {
+    font-size: 0.9rem;
+  }
+
+  .menu-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Large Tablets (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .logout-container {
+    height: 65px;
+    padding: 2px 25px;
+  }
+
+  .logout-button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    height: 45px;
+  }
+
+  .menu-options {
+    padding: 16px 0;
+  }
+
+  .menu-button {
+    font-size: 1rem;
+  }
+
+  .menu-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
