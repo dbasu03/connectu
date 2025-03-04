@@ -303,6 +303,9 @@ const [matchDisconnected, setMatchDisconnected] = useState(false);
     }
     setShowChatroom(!showChatroom);
   };
+  useEffect(() => {
+    setShowChatroom(false);
+}, []);
   
   const toggleShowConfessions = async () => {
     if (!showConfessions && matchedUser) {
@@ -748,8 +751,11 @@ const [matchDisconnected, setMatchDisconnected] = useState(false);
       );
     }
     
+    
     return null;
   };
+
+
 
   return (
     <div className="home-container">
@@ -975,7 +981,7 @@ const [matchDisconnected, setMatchDisconnected] = useState(false);
     </div>
   )}
   
-  {!showChats && !showChatroom && !showConfessions && (
+  {!showChats  && (
     <button 
       className="match-button" 
       onClick={initiateMatching}
